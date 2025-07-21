@@ -1,0 +1,157 @@
+/* @theme fresh-green-v2 */
+
+@import "default";
+
+/* カラー設定 */
+:root {
+    --accent-color: #389826;
+    --accent-sub-color: #9fff50;
+    --text-color: #3f3f3f;
+    --background-color: #f5eacf;
+}
+
+/* ------------------------------ */
+/* 0: 共通の基本スタイル */
+section {
+    background: var(--background-color);
+    color: var(--text-color);
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    padding: 60px;
+    position: relative;
+}
+
+h1 {
+    color: var(--text-color);
+    border-bottom: 3px solid var(--accent-color);
+    padding-bottom: 10px;
+}
+
+h2 {
+    color: var(--text-color);
+    margin-top: 1em;
+}
+
+/* コードブロックスタイル */
+pre {
+    background: #f8f9fa;
+    border-left: 4px solid #3498db;
+    padding: 1em;
+    border-radius: 4px;
+}
+
+/* リストスタイル */
+ul li {
+    margin-bottom: 0.5em;
+}
+
+/* 強調テキスト */
+strong {
+    color: var(--accent-color);
+}
+
+/* リンクスタイル */
+a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* フッター（ページ番号・署名） */
+section::after {
+    content: attr(data-marpit-pagination) " / "
+        attr(data-marpit-pagination-total);
+    position: absolute;
+    bottom: 20px;
+    right: 30px;
+    font-size: 0.8em;
+    color: #666;
+}
+
+/* 署名用フッター */
+section::before {
+    content: "Citrus";
+    position: absolute;
+    bottom: 20px;
+    left: 30px;
+    font-size: 0.8em;
+    color: var(--text-color);
+}
+
+/* 表紙ではフッターを非表示 */
+section.cover::after,
+section.cover::before {
+    display: none;
+}
+
+/* ------------------------------ */
+/* 1. 表紙スタイル */
+section.cover {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: var(--background-color);
+}
+
+section.cover h1 {
+    font-size: 3em;
+    margin-bottom: 0.5em;
+    border-bottom: var(--primary-color);
+}
+
+section.cover h2 {
+    font-size: 1.5em;
+    margin-bottom: 1em;
+}
+
+section.cover p {
+    font-size: 1em;
+}
+
+/* ------------------------------ */
+/* 2: 通常レイアウト */
+section.one-column {
+    display: grid;
+}
+
+/* ------------------------------ */
+/* 3. 二段組レイアウト */
+section.two-column {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2em;
+    align-items: start;
+}
+
+section.two-column .left-column {
+    grid-column: 1;
+}
+
+section.two-column .right-column {
+    grid-column: 2;
+}
+
+/* ------------------------------ */
+/* 4. 三段組レイアウト */
+section.three-column {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1.5em;
+    align-items: start;
+}
+
+section.three-column .column-1 {
+    grid-column: 1;
+}
+
+section.three-column .column-2 {
+    grid-column: 2;
+}
+
+section.three-column .column-3 {
+    grid-column: 3;
+}
