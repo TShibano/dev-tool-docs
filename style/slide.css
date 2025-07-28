@@ -1,4 +1,4 @@
-/* @theme fresh-green-v2 */
+/* @theme slide */
 
 @import "default";
 
@@ -16,18 +16,29 @@ section {
     background: var(--background-color);
     color: var(--text-color);
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    padding: 60px;
+    /* padding: 60px; */
+    padding-top: 0px; /* h1の高さ分の余白 */
     position: relative;
 }
-
-h1 {
+/* h1をヘッダーとして固定 */
+section h1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
     color: var(--text-color);
-    border-bottom: 3px solid var(--accent-color);
-    padding-bottom: 10px;
+    /* background: var(--background-color); */
+    padding: 20px 60px;
+    margin: 0;
+    border-bottom: 2px solid var(--accent-color);
+    z-index: 10;
+    font-size: 1.6em; /* サイズ調整 */
 }
 
 h2 {
     color: var(--text-color);
+    border-bottom: 2px solid var(--accent-sub-color);
+    font-size: 1.2em;
     margin-top: 1em;
 }
 
@@ -72,7 +83,7 @@ section::after {
 
 /* 署名用フッター */
 section::before {
-    content: "Citrus";
+    content: "citrus88";
     position: absolute;
     bottom: 20px;
     left: 30px;

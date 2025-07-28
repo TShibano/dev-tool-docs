@@ -1,0 +1,141 @@
+/* A4サイズ設定 */
+section {
+    width: 210mm;
+    height: 297mm;
+    padding: 25mm 25mm 25mm 25mm;
+    box-sizing: border-box;
+    font-family: "Noto Sans JP", "Yu Gothic", "Meiryo", sans-serif;
+    font-size: 12pt;
+    position: relative;
+}
+
+/* 表題ページ */
+section.title-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background: #f8f8f8;
+}
+section.title-page h1 {
+    font-size: 2.5em;
+    margin-bottom: 0.3em;
+}
+section.title-page h2 {
+    font-size: 1.5em;
+    margin-bottom: 0.5em;
+    color: #555;
+}
+section.title-page .author,
+section.title-page .email {
+    font-size: 1.1em;
+    margin-bottom: 0.2em;
+    color: #0f0;
+}
+
+/* 章・節・項 */
+h1 {
+    font-size: 1.8em;
+    border-bottom: 2px solid #333;
+    margin-top: 0.2em;
+    margin-bottom: 0.2em;
+}
+h2 {
+    font-size: 1.3em;
+    border-left: 4px solid #888;
+    padding-left: 0.5em;
+    margin-top: 1em;
+    margin-bottom: 0.2em;
+}
+h3 {
+    font-size: 1.1em;
+    margin-top: 1em;
+    margin-bottom: 0.3em;
+    color: #444;
+}
+
+/* 本文要素 */
+p {
+    margin: 0.5em 0;
+    line-height: 1.7;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1em 0;
+    font-size: 0.95em;
+}
+th,
+td {
+    border: 1px solid #aaa;
+    padding: 0.4em 0.7em;
+}
+figure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1.2em 0;
+}
+figcaption {
+    font-size: 0.9em;
+    color: #666;
+    margin-top: 0.3em;
+}
+pre,
+code {
+    background: #f4f4f4;
+    border-radius: 4px;
+    font-family: "Fira Mono", "Consolas", monospace;
+    font-size: 0.95em;
+    padding: 0.4em 0.7em;
+    line-height: 1.6; /* 行間を広げる */
+    overflow-x: auto;
+    box-sizing: border-box;
+}
+pre {
+    margin: 1em 0;
+    display: block;
+}
+
+a {
+    color: #0066cc;
+    text-decoration: underline;
+    word-break: break-all;
+}
+
+/* ページ下部共通フッター */
+section::after {
+    content: attr(data-footer);
+    position: absolute;
+    left: 25mm;
+    right: 25mm;
+    bottom: 12mm;
+    font-size: 0.9em;
+    color: #666;
+    text-align: left;
+    white-space: pre-line;
+}
+
+/* ページ番号中央下部 */
+section::before {
+    content: counter(page);
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 12mm;
+    text-align: center;
+    font-size: 0.95em;
+    color: #444;
+}
+
+/* コピーライト右下 */
+section::after {
+    content: "Copyright © 2025 ctirus88";
+    position: absolute;
+    right: 25mm;
+    bottom: 12mm;
+    font-size: 0.9em;
+    color: #888;
+    text-align: right;
+}
