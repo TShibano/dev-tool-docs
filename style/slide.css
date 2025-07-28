@@ -45,7 +45,7 @@ h2 {
 /* コードブロックスタイル */
 pre {
     background: #f8f9fa;
-    border-left: 4px solid #3498db;
+    border-left: 4px solid var(--accent-sub-color);
     padding: 1em;
     border-radius: 4px;
 }
