@@ -1,12 +1,28 @@
+/*
+ * A4 Document theme
+ * @theme document
+ * @auther citrus88
+*/
+
 /* A4サイズ設定 */
+@import "default";
+@page {
+    size: A4;
+    margin: 0;
+}
+
 section {
     width: 210mm;
     height: 297mm;
-    padding: 25mm 25mm 25mm 25mm;
+    justify-content: start;
     box-sizing: border-box;
+    padding: 40mm 25mm 30mm 25mm;
+    background: #fff;
+    color: #555;
     font-family: "Noto Sans JP", "Yu Gothic", "Meiryo", sans-serif;
     font-size: 12pt;
     position: relative;
+    text-align: left; /*本文は左寄せ*/
 }
 
 /* 表題ページ */
@@ -16,43 +32,42 @@ section.title-page {
     justify-content: center;
     align-items: center;
     height: 100%;
-    background: #f8f8f8;
+    position: relative;
 }
-section.title-page h1 {
+section.title-page .title {
+    position: absolute;
+    top: 30mm;
+    text-align: center;
     font-size: 2.5em;
+    font-weight: bold;
     margin-bottom: 0.3em;
 }
-section.title-page h2 {
-    font-size: 1.5em;
-    margin-bottom: 0.5em;
-    color: #555;
-}
-section.title-page .author,
-section.title-page .email {
+section.title-page .meta {
+    position: absolute;
+    top: 60mm;
+    right: 25mm;
+    text-align: right;
     font-size: 1.1em;
     margin-bottom: 0.2em;
-    color: #0f0;
+    line-height: 1.7;
 }
 
 /* 章・節・項 */
+section h1,
+section h2,
+section h3 {
+    text-align: left;
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
 h1 {
     font-size: 1.8em;
-    border-bottom: 2px solid #333;
-    margin-top: 0.2em;
-    margin-bottom: 0.2em;
 }
 h2 {
-    font-size: 1.3em;
-    border-left: 4px solid #888;
-    padding-left: 0.5em;
-    margin-top: 1em;
-    margin-bottom: 0.2em;
+    font-size: 1.4em;
 }
 h3 {
-    font-size: 1.1em;
-    margin-top: 1em;
-    margin-bottom: 0.3em;
-    color: #444;
+    font-size: 1.2em;
 }
 
 /* 本文要素 */
