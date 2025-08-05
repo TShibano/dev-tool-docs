@@ -1,264 +1,184 @@
 ---
 marp: true
-theme: ../../style/slide.css
+theme: a4-document
+paginate: true
 ---
 
-# uvパッケージ管理ツール ガイドドキュメント
+<!-- class:  title-page -->
 
-## 1. uvとは
+<div class="title">
+    uv Document
+</div>
 
-uvは、Rustで書かれた高性能なPythonパッケージおよびプロジェクト管理ツールです。pip、pip-tools、pipx、poetry、pyenv、twine、virtualenvなどの複数のツールを1つで置き換える包括的なソリューションとして設計されています。
+<div class="meta">
+citrus88<br>
+citrus.mikan88@gmail.com<br>
+初版: 2025/08/05<br>
+更新日: 2025/08/05<br>
+</div>
 
-## 2. uvの特徴・メリット
+---
 
-### 2.1 高速性
+# 1. uvの概略
 
-従来のpipなどのPythonパッケージ管理ツールと比較して、大幅な速度改善を実現しています。Rustで書かれているため、極めて高速な処理が可能です。
+uvは，複数あるPythonの開発ツールを1つのツールで置き換える包括的なソリューションとして設計されたツールである．Rustで書かれており，非常に高いパフォーマンスと多くの機能を持ったツールである．従来のPythonは，pip, pip-tools, pipx, poetry, pyenv, twine, virtualenvなど，複数のツールを使って開発を行っていた．ライセンスは，Apache License Version 2.0もしくはMIT Licenseのどちらかを選ぶことができる．
+現在も開発が進められており，破壊的な変更が起こる可能性がある．日々最新の情報を取得しながら利用すると良い．
 
-### 2.2 信頼性
+## 1.1 uvの特徴
 
-依存関係解決の信頼性が向上しており、より一貫性のある環境構築が可能です。
+- 高速性
+  - 従来のpipなどのPythonパッケージ管理ツールと比較して，極めて高速な処理が可能である．
+- 信頼性
+  - 依存関係解決の信頼性が向上しており，より一貫性のある環境構築が可能である．
+- 統合性
+  - 複数のPythonツールを1つに統合することで，ツールチェーンの複雑さを大幅に軽減する．
+- 自動管理
+  - 必要に応じて不足しているパッケージを自動的にインストールし，環境のセットアップを簡素にできる
 
-### 2.3 統合性
+## 1.2 uvの主な機能
 
-複数のPythonツールを1つに統合することで、ツールチェーンの複雑さを大幅に軽減します。
+uvの用途とその機能を担っていた既存ツールを紹介する．
 
-### 2.4 Python自動管理
+| 用途                 | 既存のツール名 |
+| -------------------- | -------------- |
+| パッケージ管理       | pip, pip-tools |
+| 仮想環境管理         | virtualenv     |
+| プロジェクト管理     | poetry         |
+| Pythonバージョン管理 | pyenv          |
+| ツール実行           | pipx           |
+| パッケージ管理       | twine          |
 
-必要に応じて不足しているPythonバージョンを自動的にインストールし、Python環境のセットアップを簡素化します。
+---
 
-## 3. uvができること・他のツールとの差異
+# 2 uvのインストール方法
 
-### 3.1 主な機能
+最新のインストール方法は，[公式サイト](https://docs.astral.sh/uv/getting-started/installation/)を参照すること．
 
-- **パッケージ管理**: pip、pip-toolsの代替
-- **仮想環境管理**: virtualenvの代替
-- **プロジェクト管理**: poetryの代替
-- **Pythonバージョン管理**: pyenvの代替
-- **ツール実行**: pipxの代替
-- **パッケージ公開**: twineの代替
+## 2.1 インストール
 
-### 3.2 従来ツールとの差異
-
-一般的なpip、pip-tools、virtualenvコマンドのドロップイン置換として設計されており、学習コストを最小限に抑えながら大幅な性能向上を実現しています。
-
-## 4. uvのインストール方法
-
-### 4.1 基本インストール
-
-#### macOS・Linux
+### macOS・Linux
 
 ```bash
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
-#### Windows
+### Windows
 
 ```powershell
-powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 ```
 
-### 4.2 パッケージマネージャーでのインストール
-
-#### Homebrew (macOS/Linux)
-
-```bash
-brew install uv
-```
-
-#### pipx
-
-```bash
-pipx install uv
-```
-
-### 4.3 インストール確認
+## 2.2 インストール確認
 
 ```bash
 uv --version
 ```
 
-## 5. uvの基本的な使い方
+エラーが出た場合，パスが正しく通っているかを確認してください．
 
-### 5.1 仮想環境の作成と管理
+---
 
-#### 新しいプロジェクトの初期化
+# 3 uvの基本的な使い方
+
+## 3.1 仮想環境の作成と管理
+
+### 新しいプロジェクトの初期化
 
 ```bash
 uv init my-project
 cd my-project
 ```
 
-### 5.2 ライブラリの追加・削除
+## 3.2 ライブラリの追加・削除
 
-#### パッケージの追加
+### パッケージの追加
 
 ```bash
 uv add requests
 ```
 
-#### パッケージの削除
+### パッケージの削除
 
 ```bash
 uv remove requests
 ```
 
-#### 依存関係のインストール
+### 依存関係のインストール
+
+`uv.lock`ファイルには正確な依存関係バージョンが自動的に記録されており，開発環境を簡単に再現することができる．
 
 ```bash
-uv sync  # pyproject.tomlから依存関係をインストール
+uv sync  # uv.lockから依存関係をインストール
 ```
 
-### 5.3 Pythonスクリプトの実行
+## 3.3 Pythonスクリプトの実行
 
-#### スクリプトの実行
+### スクリプトの実行
 
 ```bash
 uv run python script.py
-uv run pytest  # テストの実行
 ```
 
-#### ワンライナーでのスクリプト実行
+---
 
-```bash
-uvx pycowsay "Hello World!"  # 一時的な環境でツールを実行
-```
+# 4 uvの応用的な使い方
 
-## 6. uvの応用的な使い方
-
-### 6.1 開発環境パッケージの管理
-
-#### 開発依存関係の分離
-
-```bash
-# 開発用パッケージの追加
-uv add --dev pytest ruff mypy
-
-# プロダクション環境でのインストール（開発依存関係を除外）
-uv sync --no-dev
-```
-
-#### プロジェクト設定（pyproject.toml）
-
-```toml
-[project]
-name = "my-project"
-version = "0.1.0"
-dependencies = [
-    "requests>=2.28.0",
-]
-
-[project.optional-dependencies]
-dev = [
-    "pytest>=7.0.0",
-    "black>=22.0.0",
-    "flake8>=5.0.0",
-]
-```
-
-### 6.2 他人とのプロジェクト共有方法
-
-#### ロックファイルの生成と共有
-
-uvは自動的に`uv.lock`ファイルを生成し、正確な依存関係バージョンを記録します。
-
-```bash
-# プロジェクトのクローン後
-git clone <repository>
-cd <project>
-uv sync  # uv.lockから正確な環境を再現
-```
-
-#### Docker環境での使用
-
-```dockerfile
-FROM python:3.11-slim
-COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
-COPY . /app
-WORKDIR /app
-RUN uv sync --frozen --no-cache
-```
-
-### 6.3 CI/CD環境での活用
-
-#### GitHub Actionsでの使用例
-
-```yaml
-- name: Install uv
-  uses: astral-sh/setup-uv@v1
-
-- name: Install dependencies
-  run: uv sync
-
-- name: Run tests
-  run: uv run pytest
-```
-
-## 7. 高度な機能
-
-### 7.1 ワークスペース管理
-
-複数の関連プロジェクトを1つのワークスペースで管理できます。
-
-```toml
-# workspace root のpyproject.toml
-[tool.uv.workspace]
-members = ["packages/*"]
-```
-
-### 7.2 Pythonバージョン管理
+## 4.1 Pythonバージョン管理
 
 ```bash
 # 特定のPythonバージョンのインストール
 uv python install 3.11
-
 # プロジェクトでのPythonバージョン指定
 uv python pin 3.11
 ```
 
-### 7.3 ツール管理
+## 4.2 開発環境パッケージの管理
+
+開発時だけ使用するパッケージは，実際にプログラムを動かす時は不要である．例えば，コードを整形するためのライブラリやテスト実行ツールなどは開発時に非常に重要であるが，プログラムを実行する時には不要である．uvでは，そのようなツールは開発用パッケージとして分けて管理することができる．
+
+```bash
+# 開発用パッケージの追加
+uv add --dev pytest ruff mypy
+# プロダクション環境でのインストール（開発依存関係を除外）
+uv sync --no-dev
+```
+
+## 4.3 ツール管理
+
+uvはPythonパッケージの便利なツールをグローバル環境にインストールできる．
+他のプロジェクト間でツールを共有して利用できるため，一回のインストールで複数のプロジェクトで利用できる．
+`uv add --dev`との明確な使い分けは難しいが，プロジェクトに依存しない汎用ツールを個人開発で利用したい場合に用いると良い．
+チームで開発補助ツールを共有する必要がある場合，`uv add --dev`を利用する．
 
 ```bash
 # グローバルツールのインストール
 uv tool install ruff
-uv tool install black
-
 # インストール済みツールの確認
 uv tool list
+# インストール済みツールの利用
+uvx ruff    # uvx = uv tool run
 ```
 
-## 8. トラブルシューティング
+---
 
-### 8.1 一般的な問題
+# 5. トラブルシューティング
+
+## 5.1 一般的な問題
 
 - キャッシュクリア: `uv cache clean`
 - 詳細ログ: `uv --verbose <command>`
 - ヘルプ: `uv help <command>`
 
-### 8.2 移行時の注意点
+## 5.2 移行時の注意点
 
-- 既存のrequirements.txtからの移行: `uv add -r requirements.txt`
-- poetry.lockからの移行: プロジェクト再初期化を推奨
+- 既存の`requirements.txt`からの移行: `uv add -r requirements.txt`
+- `poetry.lock`からの移行: プロジェクト再初期化を推奨
 
-## 9. まとめ
+---
 
-uvは「Cargo for Python」を目指す包括的なPythonプロジェクト・パッケージ管理ツールです。高速性、信頼性、使いやすさを兼ね備えており、従来の複数ツールを1つに統合することで、Python開発者の生産性を大幅に向上させます。
+# 参考文献
 
-モダンなPython開発環境を構築したい開発者、チーム開発でのプロジェクト管理を改善したい組織、CI/CDパフォーマンスを向上させたいプロジェクトにとって、uvは強力な選択肢となるでしょう。
-
-### 出典
-
+- [uv](https://docs.astral.sh/uv/)
 - [uv: Python packaging in Rust](https://astral.sh/blog/uv)
-- [Python UV: The Ultimate Guide to the Fastest Python Package Manager | DataCamp](https://www.datacamp.com/tutorial/python-uv)
 - [Getting started - Astral Docs](https://docs.astral.sh/uv/getting-started/)
 - [GitHub - astral-sh/uv](https://github.com/astral-sh/uv)
-- [Python UV: The Ultimate Guide to the Fastest Python Package Manager | DataCamp](https://www.datacamp.com/tutorial/python-uv)
-- [uv Package Manager for Python | by Dr. Nimrita Koul | Medium](https://medium.com/@nimritakoul01/uv-package-manager-for-python-f92c5a760a1c)
-- [Getting help | uv](https://docs.astral.sh/uv/getting-started/help/)
-- [Using workspaces | uv](https://docs.astral.sh/uv/concepts/projects/workspaces/)
-- [Installing and managing Python | uv](https://docs.astral.sh/uv/guides/install-python/)
-- [Using uv in GitHub Actions | uv](https://docs.astral.sh/uv/guides/integration/github/)
-- [Using uv in Docker | uv](https://docs.astral.sh/uv/guides/integration/docker/)
-- [uv](https://docs.astral.sh/uv/?featured_on=talkpython)
-- [Installation | uv](https://docs.astral.sh/uv/getting-started/installation/)
-- [uv · PyPI](https://pypi.org/project/uv/0.1.32/)
