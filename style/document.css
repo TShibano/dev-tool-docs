@@ -1,156 +1,194 @@
 /*
- * A4 Document theme
- * @theme document
- * @auther citrus88
-*/
+ * @theme a4-document
+ * @auto-scaling true
+ */
 
-/* A4サイズ設定 */
 @import "default";
-@page {
-    size: A4;
-    margin: 0;
-}
 
+/* Import Google Fonts for Japanese and English */
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@300;400;500;700&display=swap");
+
+/* A4 paper dimensions: 210mm × 297mm (8.27" × 11.69") */
 section {
     width: 210mm;
     height: 297mm;
-    justify-content: start;
-    box-sizing: border-box;
-    padding: 40mm 25mm 30mm 25mm;
-    background: #fff;
-    color: #555;
-    font-family: "Noto Sans JP", "Yu Gothic", "Meiryo", sans-serif;
+    padding: 20mm 20mm 20mm 20mm; /* Top, Right, Bottom, Left margins */
+    font-family:
+        "Noto Serif JP", "Yu Mincho", "游明朝", "Hiragino Mincho ProN",
+        "Times New Roman", serif;
     font-size: 12pt;
-    position: relative;
-    text-align: left; /*本文は左寄せ*/
+    line-height: 1.5;
+    color: #000000;
+    background: #ffffff;
+    box-sizing: border-box;
+    page-break-after: always;
+    overflow: hidden;
+    justify-content: flex-start; /* Start content from top */
+    align-content: flex-start; /* Align content to top */
 }
 
 /* 表題ページ */
+
 section.title-page {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    position: relative;
 }
 section.title-page .title {
-    position: absolute;
-    top: 30mm;
     text-align: center;
     font-size: 2.5em;
-    font-weight: bold;
-    margin-bottom: 0.3em;
+    margin-bottom: 4em;
 }
 section.title-page .meta {
-    position: absolute;
-    top: 60mm;
-    right: 25mm;
     text-align: right;
     font-size: 1.1em;
-    margin-bottom: 0.2em;
-    line-height: 1.7;
 }
 
-/* 章・節・項 */
-section h1,
-section h2,
-section h3 {
-    text-align: left;
-    margin-top: 2em;
-    margin-bottom: 1em;
-}
+/* Headers */
 h1 {
-    font-size: 1.8em;
-}
-h2 {
-    font-size: 1.4em;
-}
-h3 {
-    font-size: 1.2em;
+    font-size: 18pt;
+    font-weight: bold;
+    margin: 0 0 12pt 0;
+    text-align: left;
+    color: #000000;
 }
 
-/* 本文要素 */
-p {
-    margin: 0.5em 0;
-    line-height: 1.7;
+h2 {
+    font-size: 14pt;
+    font-weight: bold;
+    margin: 12pt 0 6pt 0;
+    color: #000000;
 }
+
+h3 {
+    font-size: 12pt;
+    font-weight: bold;
+    margin: 12pt 0 6pt 0;
+    color: #000000;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 12pt;
+    font-weight: bold;
+    margin: 6pt 0 6pt 0;
+    color: #000000;
+}
+
+/* Paragraphs */
+p {
+    margin: 0 0 6pt 0;
+    text-align: justify;
+    text-indent: 0;
+}
+
+/* Lists */
+ul,
+ol {
+    margin: 6pt 0 6pt 0;
+    padding-left: 20pt;
+}
+
+li {
+    margin: 3pt 0;
+}
+
+/* Tables */
 table {
     width: 100%;
     border-collapse: collapse;
-    margin: 1em 0;
-    font-size: 0.95em;
-}
-th,
-td {
-    border: 1px solid #aaa;
-    padding: 0.4em 0.7em;
-}
-figure {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 1.2em 0;
-}
-figcaption {
-    font-size: 0.9em;
-    color: #666;
-    margin-top: 0.3em;
-}
-pre,
-code {
-    background: #f4f4f4;
-    border-radius: 4px;
-    font-family: "Fira Mono", "Consolas", monospace;
-    font-size: 0.95em;
-    padding: 0.4em 0.7em;
-    line-height: 1.6; /* 行間を広げる */
-    overflow-x: auto;
-    box-sizing: border-box;
-}
-pre {
-    margin: 1em 0;
-    display: block;
+    margin: 12pt 0;
+    font-size: 11pt;
 }
 
+th,
+td {
+    border: 1pt solid #000000;
+    padding: 6pt;
+    text-align: left;
+    vertical-align: top;
+}
+
+th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+}
+
+/* Code blocks */
+pre {
+    background: #f8f8f8;
+    border: 1pt solid #cccccc;
+    padding: 12pt;
+    margin: 12pt 0;
+    font-family: "Courier New", monospace;
+    font-size: 10pt;
+    line-height: 1.2;
+    overflow-x: auto;
+}
+
+code {
+    font-family: "Courier New", monospace;
+    font-size: 10pt;
+    background: #f0f0f0;
+    padding: 1pt 2pt;
+}
+
+/* Inline code in pre blocks shouldn't have background */
+pre code {
+    background: none;
+    padding: 0;
+}
+
+/* Blockquotes */
+blockquote {
+    margin: 12pt 20pt;
+    padding: 6pt 12pt;
+    border-left: 3pt solid #cccccc;
+    font-style: italic;
+    background: #f9f9f9;
+}
+
+/* Images */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 12pt auto;
+}
+
+/* Links */
 a {
     color: #0066cc;
     text-decoration: underline;
-    word-break: break-all;
 }
 
-/* ページ下部共通フッター */
+a:visited {
+    color: #800080;
+}
+
+/* Horizontal rules */
+hr {
+    border: none;
+    border-top: 1pt solid #000000;
+    margin: 12pt 0;
+}
+
+/* Strong and emphasis */
+strong,
+b {
+    font-weight: bold;
+}
+
+em,
+i {
+    font-style: italic;
+}
+
+/* Footer for page numbers (centered bottom) */
 section::after {
-    content: attr(data-footer);
-    position: absolute;
-    left: 25mm;
-    right: 25mm;
-    bottom: 12mm;
-    font-size: 0.9em;
-    color: #666;
-    text-align: left;
-    white-space: pre-line;
-}
-
-/* ページ番号中央下部 */
-section::before {
     content: counter(page);
     position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 12mm;
-    text-align: center;
-    font-size: 0.95em;
-    color: #444;
-}
-
-/* コピーライト右下 */
-section::after {
-    content: "Copyright © 2025 ctirus88";
-    position: absolute;
-    right: 25mm;
-    bottom: 12mm;
-    font-size: 0.9em;
-    color: #888;
-    text-align: right;
+    bottom: 10mm;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10pt;
+    color: #666666;
 }
