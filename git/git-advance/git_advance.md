@@ -89,7 +89,7 @@ GitHub Flowのブランチの様子は以下である．
 
 # チーム開発の流れ
 
-Gitを用いてチーム開発する
+## Gitを用いてチーム開発する時の流れ
 
 1. (初回のみ)リモートリポジトリの作成する
 2. (初回のみ)リモートリポジトリをローカル環境に複製する(clone)
@@ -102,23 +102,30 @@ Gitを用いてチーム開発する
 
 ---
 
-# チーム開発: リモートリポジトリの作成と複製
-
 ## リモートリポジトリの作成
 
-1. GitHubやGitLabでリポジトリを作成
-2. README.mdや.gitignoreファイルの追加
-3. リポジトリのURLを確認
+GitHubやGitLabでリポジトリを作成する．
+
+- [GitLabでのリポジトリ作成方法](https://docs.gitlab.com/ee/user/project/README.html#create-a-project)
+- [GitHubでのリポジトリ作成方法](https://docs.github.com/ja/repositories/creating-and-managing-repositories/creating-a-new-repository)
 
 ## リモートリポジトリの複製
 
-```bash
-# HTTPSでクローン
-git clone https://github.com/username/repository.git
+GitHub/GitLab上のリポジトリにアクセスし，URLをコピーする．その後，作業するPC上でターミナルを開き，`git clone`コマンドを実行してクローンする．
 
-# SSHでクローン
-git clone git@github.com:username/repository.git
+```bash
+git clone <URL>
 ```
+
+- [GitLabでのリポジトリ複製方法](https://docs.gitlab.com/topics/git/clone/)
+- [GitHubでのリポジトリ複製方法](https://docs.github.com/ja/repositories/creating-and-managing-repositories/cloning-a-repository?tool=webui#about-cloning-a-repository)
+
+### 補足
+
+SSHでクローンするためには，事前に作業するマシン内でSSHキーを作成し，GitHubやGitLabにSSHキーを登録しておく必要がある．登録方法は以下のURLが参考になる．
+
+- [GitLab SSHキー登録](https://gitlab-docs.creationline.com/ee/user/ssh.html#generate-an-ssh-key-pair)
+- [GitHub SSHキー登録](https://docs.github.com/ja/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent?platform=linux)
 
 ---
 
