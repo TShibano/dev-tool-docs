@@ -79,11 +79,14 @@ GitHub Flowのブランチの様子は以下である．
 それ以外の有名なブランチ戦略は以下である．
 
 - Git Flow
-  - []()
+  - 複数の長期ブランチ（main/develop）とフィーチャーブランチを使用する複雑なブランチ戦略
+  - [Git Flow](https://nvie.com/posts/a-successful-git-branching-model/)
 - GitLab Flow
-  - []()
+  - GitHub Flowをベースに環境別ブランチを追加したシンプルかつ柔軟なワークフロー
+  - [GitLab Flow](https://about.gitlab.com/ja-jp/topics/version-control/what-is-gitlab-flow/)
 - Trunk-Based Flow
-  - []()
+  - メインブランチに頻繁に小さなコミットを直接行う最もシンプルな開発手法
+  - [Trunk Based Flow](https://www.atlassian.com/ja/continuous-delivery/continuous-integration/trunk-based-development)
 
 ---
 
@@ -129,7 +132,10 @@ SSHでクローンするためには，事前に作業するマシン内でSSH�
 
 ---
 
-# チーム開発: ブランチ作成
+## ブランチ作成
+
+新しい機能を開発をする時やバグを直す時など，何か作業をする時はブランチを作ってから作業を始める．
+ブランチの命名規則はチームによって決めると良い．
 
 ```bash
 # 最新のmainブランチに移動
