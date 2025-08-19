@@ -1,0 +1,18 @@
+{
+  "allowedTools": [
+    "Edit",
+    "CreateFile",
+    "ReadFile",
+    "ReadDir",
+    "Bash(git *)",
+    "Bash(ls *)",
+    "Bash(cat *)",
+    "Bash(grep *)",
+    "Bash(find *)",
+    "WebSearch",
+    "WebFetch"
+  ],
+  "autoApproveRead": true,
+  "autoApproveWrite": false,
+  "autoApproveTerminal": false
+}
