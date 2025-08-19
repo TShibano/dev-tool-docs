@@ -132,47 +132,40 @@ SSHでクローンするためには，事前に作業するマシン内でSSH�
 
 ---
 
-## ブランチ作成
+## ブランチ作成 ~ プッシュ
 
-新しい機能を開発をする時やバグを直す時など，何か作業をする時はブランチを作ってから作業を始める．
-ブランチの命名規則はチームによって決めると良い．
+新しい機能を開発をする時やバグを直す時など，何か作業をする時はブランチを作ってから作業を始める．ブランチの命名規則はチームで運用されているブランチ戦略によって，チームのルールを決めると良い．
 
-```bash
-# 最新のmainブランチに移動
-git checkout main
-git pull origin main
+ブランチはGitHub/GitLabのリモートリポジトリ上でも，ローカルのリポジトリ上でも可能である．リモートリポジトリ上で作成した場合，ローカルリポジトリへブランチをpullする必要がある．ローカルリポジトリで作成した場合，リモートリポジトリへpushする場合，少し工夫が必要になる，
 
-# 新しいfeatureブランチを作成・移動
-git checkout -b feature/new-function
+### リモートリポジトリでブランチを作成する場合
 
-# または
-git switch -c feature/new-function
-```
+1. GitHub/GitLab上でブランチを作成する
+2. ローカルリポジトリにブランチをpullする
+   1. `git pull <ブランチ名>`
+3. 作業ブランチにコミットする
+4. 作業完了後，リモートリポジトリへプッシュする
+   1. `git push origin <ブランチ名>`
 
-**ブランチ名の命名規則例：**
+### ローカルリポジトリでブランチを作成する
 
-- `feature/機能名`：新機能開発
-- `fix/バグ名`：バグ修正
-- `docs/ドキュメント名`：ドキュメント更新
+0. mainブランチを最新にする
+1. `main`ブランチから作業ブランチを作成する
+   1. `git branch ブランチ名`
+2. 作業ブランチに移動する
+   1. `git switch ブランチ名`
+3. 作業を行い，コミットする
+4. リモートリポジトリへプッシュする
+   1. `git push -u origin ブランチ名`
 
----
+### ブランチ名の命名規則の例
 
-# チーム開発: リモートリポジトリへプッシュ
+- `feature/機能名`: 新機能開発
+- `fix/バグ名`: バグ修正
+- `docs/ドキュメント名`: ドキュメント更新
+- `refactor/作業名`: リファクタリング
 
-```bash
-# ローカルでの変更をコミット
-git add .
-git commit -m "機能の実装完了"
-
-# リモートリポジトリにプッシュ
-# 初回プッシュ時
-git push -u origin feature/new-function
-
-# 2回目以降
-git push
-```
-
-**コミットメッセージのベストプラクティス：**
+### コミットメッセージのベストプラクティス
 
 - 簡潔で明確な説明
 - 何を「なぜ」変更したかを記述
@@ -252,15 +245,60 @@ git push origin --delete feature/new-function
 
 # Gitの便利機能
 
+ここからはGitを使う上で発展的な便利機能を紹介する．
+
+- `.gitignore`による管理対象ファイルの選択
+- タグ付け
+- Gitエイリアス設定
 - `git stash`
 - `git rebase`
 - `git cherry-pick`
 - `git blame`
-- Gitエイリアス設定
+
+### .gitignore
+
+`.gitignore`を用いることで管理対象外にするファイルを指定できる．
+`.gitignore`ファイルは，リポジトリが存在するワークディレクトリ内であればどの場所においても良く，`.gitignore`ファイルからの相対パスを用いてファイルを指定する．
+
+```
+# #以下はコメントになる
+memo.txt
+# アスタリスクなどを使用して，指定することもできる．
+*.log     # .logと付くファイル全てを指定する
+# ディレクトリを指定することも可能
+node_modules/
+```
+
+### タグ付け
+
+```bash
+# 軽量タグの作成
+git tag v1.0.0
+
+# 注釈付きタグの作成
+git tag -a v1.0.0 -m "リリース版 1.0.0"
+
+# タグをリモートにプッシュ
+git push origin v1.0.0
+
+# すべてのタグをプッシュ
+git push origin --tags
+```
+
+### Gitエイリアス設定
+
+```bash
+# よく使うコマンドを短縮
+git config --global alias.co checkout
+git config --global alias.br branch
+git config --global alias.ci commit
+git config --global alias.st status
+git config --global alias.lg "log --oneline --graph --all"
+```
 
 ---
 
-# git stash
+## git stash
 
 作業中の変更を一時的に退避する機能
 
@@ -288,7 +326,7 @@ git stash apply stash@{0}
 
 ---
 
-# git rebase
+## git rebase
 
 履歴を整理してマージする機能
 
@@ -314,7 +352,7 @@ git rebase --continue
 
 ---
 
-# git cherry-pick
+## git cherry-pick
 
 特定のコミットを別ブランチに適用
 
@@ -336,7 +374,7 @@ git cherry-pick --no-commit <commit-hash>
 
 ---
 
-# git blame
+## git blame
 
 各行の最終更新者と更新日時を確認
 
@@ -359,59 +397,7 @@ git blame -w -C filename.txt
 
 ---
 
-# その他の便利機能
-
-## タグ付け
-
-```bash
-# 軽量タグの作成
-git tag v1.0.0
-
-# 注釈付きタグの作成
-git tag -a v1.0.0 -m "リリース版 1.0.0"
-
-# タグをリモートにプッシュ
-git push origin v1.0.0
-
-# すべてのタグをプッシュ
-git push origin --tags
-```
-
-## .gitignore
-
-管理対象外にするファイルを指定
-
-```
-# コメント
-*.log
-node_modules/
-.env
-.DS_Store
-```
-
-## ログの活用
-
-```bash
-# グラフィカルな履歴表示
-git log --oneline --graph --all
-
-# 特定作者のコミット
-git log --author="username"
-
-# ファイルの変更履歴
-git log --follow filename.txt
-```
-
-## Gitエイリアス設定
-
-```bash
-# よく使うコマンドを短縮
-git config --global alias.co checkout
-git config --global alias.br branch
-git config --global alias.ci commit
-git config --global alias.st status
-git config --global alias.lg "log --oneline --graph --all"
-```
+## その他の便利機能
 
 ---
 
