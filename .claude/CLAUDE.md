@@ -37,9 +37,6 @@
 
 ### Gitワークフロー
 
-```bash
-git status
-git add .
-git commit -m "docs: ドキュメントを更新"
-git push
-```
+- 必ず"review_coument.md"に従ってドキュメントをレビューしてからコミットしてください．
+- コミットメッセージは簡潔にしてください．
+- コミットメッセージは日本語で書く
