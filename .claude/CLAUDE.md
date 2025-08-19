@@ -1,56 +1,45 @@
-# Python Development Tools Documentation Project
+# 開発ツールドキュメントプロジェクト
 
-This project contains documentation for Python development tools including uv, ruff, docker, git, and others.
+このプロジェクトは、コンテナ技術やgit，PythonやRustといったプログラミング言語などの様々なツールに関するドキュメントを含んでいます。
 
-## Project Structure
+## ドキュメントの執筆ガイド
 
-- `git/` - Git-related documentation and guides
-- `python/` - Python tool documentation
-- Templates and resources for creating comprehensive tool documentation
+### 文章の書き方
 
-## Documentation Standards
+- すべてのドキュメントは日本語で作成する
+- 技術的正確性を最優先とする
+- 文章で書くことを主体とする
+- だ・である調で書く
+- 技術用語は日本語の後に英語を併記する(例: 競合(conflict))
+- 句読点はコンマ(，)とピリオド(．)でとする
+- 見出しは`#`と`##`と`###`で作成する
+- 同じレベルの内容を並行して書く場合，箇条書きを用いる
+- 手順は番号付きリストを使用する
+- コードブロックには言語指定を必ず行う
+- 言葉だけでは理解が難しい内容はmermaidなどを使って図解する
 
-- Use clear, practical examples
-- Include installation instructions
-- Provide configuration examples
-- Add troubleshooting sections
-- Include links to official documentation
+### ドキュメントに含める内容
 
-## Common Commands
+- 表紙に，タイトルと作成者(citrus)を書く
+- 目次を書く
+- はじめに
+  - 想定読者
+  - 本資料のゴール
+  - この資料で説明しないこと
+- ツールの特徴とメリット
+- インストール手順(Ubuntu, MacOS, Windows)を含める
+- クイックスタート
+- ツールの使い方
+- 明確で実用的な例
+- ツールのヘルプの見方
+- トラブルシューティングセクション
+- 公式ドキュメントへのリンク
 
-### Building/Testing Documentation
-```bash
-# Add specific commands for your documentation workflow here
-# For example:
-# npm run build
-# python -m mkdocs serve
-```
+### Gitワークフロー
 
-### Git Workflow
 ```bash
 git status
 git add .
-git commit -m "docs: update documentation"
+git commit -m "docs: ドキュメントを更新"
 git push
 ```
-
-## Tools to Document
-
-- **uv**: Python package installer and resolver
-- **ruff**: Python linter and formatter
-- **docker**: Containerization platform
-- **git**: Version control system
-- **pytest**: Python testing framework
-- **black**: Python code formatter
-- **mypy**: Static type checker
-- **poetry**: Python dependency management
-
-## Writing Guidelines
-
-1. Start with a brief overview of the tool
-2. Include installation instructions
-3. Show basic usage examples
-4. Cover common configuration options
-5. Add advanced usage scenarios
-6. Include troubleshooting tips
-7. Link to official resources
