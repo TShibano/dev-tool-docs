@@ -13,8 +13,8 @@ paginate: true
 <div class="meta">
 citrus88<br>
 citrus.mikan88@gmail.com<br>
-初版: 2025/08/05<br>
-更新日: 2025/08/05<br>
+初版: 2025/08/28<br>
+更新日: 2025/08/28<br>
 </div>
 
 ---
@@ -23,15 +23,29 @@ citrus.mikan88@gmail.com<br>
 
 ## 想定読者
 
-- Gitを使って個人開発でバージョン管理を行っている人
+- Gitの基本的な使い方は理解している人
 
 ## 本資料のゴール
 
-- Gitで以下の応用的な使い方ができる
-  - 管理対象のファイルを選択する
-  - タグ付け
-  - コミットの整理
-  -
+Gitで以下の応用的な使い方ができる
+
+- エイリアス設定
+  - `git config --global alias.`
+- 管理対象のファイルを選択する
+  - `.gitignore`ファイル
+- タグ付け
+  - `git tag`
+- 作業中の変更を一時的に退避する
+  - `git stash`
+- コミットする範囲を指定する
+  - `git add -p` & `git commit`
+- コミットの整理
+  - `git rebase -i`
+  - `git reset --soft` & `git add -p`
+- 特定にコミットを別ブランチに適用する
+  - `git cherry-pick`
+- 行単位の変更履歴の確認
+  - `git blame`
 
 ## この資料で説明しないこと
 
@@ -39,24 +53,31 @@ citrus.mikan88@gmail.com<br>
 
 ---
 
-# Gitの便利機能
+## Gitエイリアス設定
 
-ここからはGitを使う上で発展的な便利機能を紹介する．
+エイリアスとは，コマンドなどを短縮するために用いる機能である．
 
-- `.gitignore`による管理対象ファイルの選択
-- タグ付け
-- Gitエイリアス設定
-- `git stash`
-- `git rebase`
-- `git cherry-pick`
-- `git blame`
+`git config --global alias.<省略名> <コマンド>`という構文で設定することができる．
 
-### .gitignore
+```bash
+# エイリアス例
+# 設定したエイリアスを確認する
+git config --global alias.al "config --get-regexp ^alias\."
+# 変更状態を確認するコマンド
+git config --global alias.st status
+# 変更履歴をグラフで可視化するコマンド
+# `git lg -5` などとすることで，上位5つまでの履歴を確認できる
+git config --global alias.lg "log --oneline --graph"
+```
+
+---
+
+## 管理対象のファイルを選択する
 
 `.gitignore`を用いることで管理対象外にするファイルを指定できる．
 `.gitignore`ファイルは，リポジトリが存在するワークディレクトリ内であればどの場所においても良く，`.gitignore`ファイルからの相対パスを用いてファイルを指定する．
 
-```
+```txt
 # #以下はコメントになる
 memo.txt
 # アスタリスクなどを使用して，指定することもできる．
@@ -65,7 +86,36 @@ memo.txt
 node_modules/
 ```
 
-### タグ付け
+すでにコミットしているファイルを後から除外したい場合，以下の対応を行う．
+なお， `git rm --cached`を行ってもファイルは自体は消えない．
+ただし，チームで開発している場合，事前に確認・調整が必要である．
+
+ファイルが少量の場合
+
+```shell
+# .gitignoreにファイル・ディレクトリを追加
+git rm --cached <ファイル名>
+git rm -r --cached <ディレクトリ名>
+git add .gitignore
+git commit -m "remove files from tracking and add to .gitignore"
+```
+
+ファイルが大量にある場合
+
+```shell
+# .gitignoreにファイル・ディレクトリを追加
+# .gitignoreパターンに一致するファイルを一括削除
+git ls-files -i c --exclude-standard | xargs git rm --cached
+git add .gitignore
+git commit -m "remove files from tracking and add to .gitignore"
+```
+
+---
+
+## タグ付け
+
+GitではコミットIDでバージョン管理を行うが，コミットIDはSHA-1形式で人間にとって読みにくいので，タグを付与することができる．
+例えば，リリースバージョンにはv1.0.0やv2.0.0のようにバージョン番号を付与することができる．
 
 ```bash
 # 軽量タグの作成
@@ -79,17 +129,6 @@ git push origin v1.0.0
 
 # すべてのタグをプッシュ
 git push origin --tags
-```
-
-### Gitエイリアス設定
-
-```bash
-# よく使うコマンドを短縮
-git config --global alias.co checkout
-git config --global alias.br branch
-git config --global alias.ci commit
-git config --global alias.st status
-git config --global alias.lg "log --oneline --graph --all"
 ```
 
 ---
@@ -122,6 +161,30 @@ git stash apply stash@{0}
 
 ---
 
+## コミットする範囲を指定する
+
+一度に多くの箇所を変更してしまった場合，分割してコミットすることができる．
+その方法は， `git add -p` を用いてステージングエリアに追加する範囲を指定する方法である．
+
+```shell
+git add -p
+# 編集画面が出るので操作する
+git commit -m "コミット1"
+git add -p
+# 編集画面が出るので操作する
+git commit -m "コミット2"
+```
+
+`git add -p`を用いた時の操作方法は以下の通りである．
+
+- `y` を入力すると変更をステージングエリアに追加する
+- `n` を入力すると変更をステージングエリアに追加しない
+- `s` を入力すると変更を分割してステージングエリアに追加する
+- `e` を入力すると変更を編集する
+- `q` を入力すると変更をステージングエリアに追加しない
+
+---
+
 ## コミットの整理
 
 一度コミットした履歴は整理することができる．コミットを整理することで以下の利点がある．
@@ -133,7 +196,7 @@ git stash apply stash@{0}
 
 ただし，すでにリモートリポジトリにプッシュしたコミットは他の人に影響を与える可能性があるため，コミットの整理はチームで相談した上で判断する．
 
-### インタラクティブリベース
+### 既存のコミット履歴を少し変更したい場合
 
 ```bash
 # インタラクティブリベース
@@ -147,6 +210,16 @@ git rebase --abort
 
 # リベース継続
 git rebase --continue
+```
+
+### コミット履歴を大幅に変更したい場合
+
+```shell
+git reset --soft HEAD~N    # 遡りたいコミットまで指定し，コミットを削除
+git reset # すれージングエリアを削除
+# 以下2つのコマンドを繰り返す
+git add -p # 必要な部分のみステージングエリアに追加
+git commit -m "新しいコミットメッセージ"
 ```
 
 ---
