@@ -134,7 +134,7 @@ git commit -m "remove files from tracking and add to .gitignore"
 
 ---
 
-## タグ付け
+## タグ付け(`git tag`)
 
 GitではコミットIDでバージョン管理を行うが，コミットIDはSHA-1形式で人間にとって読みにくいので，タグを付与することができる．
 例えば，リリースバージョンにはv1.0.0やv2.0.0のようにバージョン番号を付与することができる．
@@ -166,19 +166,23 @@ git push origin --tags
 
 ```bash
 # 変更を退避
-git stash
+# -u (--include-untracked)をつけることで，未追跡ファイルも退避する
+git stash -u
 
 # メッセージ付きで退避
-git stash push -m "作業中の変更を一時保存"
-
-# 退避した変更を戻す
-git stash pop
+git stash save "作業中の変更を一時保存"
 
 # 退避リストを確認
 git stash list
 
-# 特定の stash を適用
-git stash apply stash@{0}
+# 退避した変更内容を戻す
+git stash apply stash@{0}  # stash@{0}がない場合，直前に退避した内容を戻す
+
+# 退避している内容を消す
+git stash drop stash@{0}
+
+# 退避した変更を戻し，退避した内容を消す
+git stash pop stash@{0}
 ```
 
 ---
