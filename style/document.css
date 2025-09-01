@@ -29,8 +29,6 @@ section {
 
 /* 表題ページ */
 
-section.title-page {
-}
 section.title-page .title {
     text-align: center;
     font-size: 2.5em;
